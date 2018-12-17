@@ -1,0 +1,18 @@
+form {
+    border-style: solid;
+    border-color: rgb(79, 120, 182);
+    padding: 15px;
+}
+
+table {
+    border-style: solid;
+    border-color: rgb(79, 120, 182);
+    padding: 15px;
+}
+
+.jumbotron {
+    background: url(../images/train.jpg);
+    background-size: cover;
+    background-position: center;
+    height: 240px;
+}
