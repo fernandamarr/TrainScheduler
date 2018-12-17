@@ -2,13 +2,12 @@
 <html lang="en-us">
 
 <head>
-
     <meta charset="utf-8">
     <title>Train Scheduler</title>
+    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
         crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
-
 </head>
 
 <body>
@@ -16,10 +15,10 @@
     <div class="container">
 
         <!-- Header -->
-        <div id="wrapper">
-            <div class="jumbotron text-white">
-                <h1 class="text-center">Train Schedule</h1>
-                <h5 class="description text-center">🚂All Aboard The Choo Choo Train!🚂</h5>
+        <div class="background">
+            <div class="jumbotron">
+                <h1 class="text-center text-white">Train Schedule</h1>
+                <h5 class="description text-center text-white">🚂 All Aboard The Choo Choo Train! 🚂</h5>
             </div>
         </div>
 
@@ -33,7 +32,7 @@
                     <th scope="col">Train Name</th>
                     <th scope="col">Destination</th>
                     <th scope="col">Frequency (min)</th>
-                    <th scope="col">Next Arribal</th>
+                    <th scope="col">Next Arrival</th>
                     <th scope="col">Minutes Away</th>
                 </tr>
             </thead>
@@ -84,7 +83,7 @@
         <form>
             <div class="form-group">
                 <label for="train-name">Train Name</label>
-                <input type="text" class="form-control" id="add-train" aria-describedby="trainName">
+                <input type="text" class="form-control" id="train" aria-describedby="trainName">
             </div>
             <div class="form-group">
                 <label for="destination">Destination</label>
@@ -98,8 +97,7 @@
                 <label for="frequency">Frequency (min)</label>
                 <input type="text" class="form-control" id="frequency" aria-describedby="trainFrequency">
             </div>
-
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary" id="add-train">Submit</button>
         </form>
         <br>
         <br>
@@ -108,6 +106,9 @@
 
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Moment.js -->
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
 
     <!-- Script -->
     <script src="assets/javascript/app.js"></script>

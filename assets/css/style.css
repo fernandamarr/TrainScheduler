@@ -1,7 +1,9 @@
-form {
-    border-style: solid;
-    border-color: rgb(79, 120, 182);
-    padding: 15px;
+.jumbotron {
+    background: url(../images/train.jpg);
+    background-size: cover;
+    background-position: center;
+    height: 240px;
+    opacity: 0.8;
 }
 
 table {
@@ -10,9 +12,9 @@ table {
     padding: 15px;
 }
 
-.jumbotron {
-    background: url(../images/train.jpg);
-    background-size: cover;
-    background-position: center;
-    height: 240px;
+form {
+    border-style: solid;
+    border-color: rgb(79, 120, 182);
+    padding: 15px;
 }
+
