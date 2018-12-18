@@ -22,6 +22,15 @@
             </div>
         </div>
 
+        <!-- Show current time -->
+        <div class="panel panel-default">
+            <div class="panel-heading text-center text-white py-2" style="background-color: rgb(24, 54, 109)">
+                <h4></h4>
+                <h5 id="current-time">The current time is: </h5>
+            </div>
+        </div>
+        <br>
+
         <!-- Current train schedule rows -->
         <table class="table table-hover table-striped">
             <div class="header text-center text-white py-2" style="background-color: rgb(79, 120, 182)">
@@ -36,7 +45,7 @@
                     <th scope="col">Minutes Away</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="new-train">
                 <tr>
                     <th scope="row">Trenton Express</th>
                     <td>Trenton</td>
@@ -90,8 +99,8 @@
                 <input type="text" class="form-control" id="destination" aria-describedby="trainDestination">
             </div>
             <div class="form-group">
-                <label for="time">First Train Time (HH:mm - military time) </label>
-                <input type="text" class="form-control" id="time" aria-describedby="trainTime">
+                <label for="first-train">First Train Time (HH:mm - military time) </label>
+                <input type="text" class="form-control" id="first-train" aria-describedby="trainTime">
             </div>
             <div class="form-group">
                 <label for="frequency">Frequency (min)</label>

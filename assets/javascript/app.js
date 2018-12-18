@@ -19,71 +19,83 @@ $(document).ready(function () {
     // Variable to reference the database
     var database = firebase.database();
 
-    // Initial values
-    var name = "";
-    var destination = "";
-    var time = "03:30";
-    var frequency = 3;
+    // Show current time
+    $("#current-time").append(moment().format("hh:mm A"));
 
-    // Capture button click
+    // Capture button click for adding trains
     $("#add-train").on("click", function (event) {
         event.preventDefault();
 
         // Store and retrieve most recent input
-        name = $("#name").val().trim();
-        destination = $("#destination").val().trim();
-        time = $("#time").val().trim();
-        frequency = $("#frequency").val().trim();
+        var name = $("#name").val().trim();
+        var destination = $("#destination").val().trim();
+        var first = $("#first-train").val().trim();
+        var frequency = $("#frequency").val().trim();
 
-        // Manipulate train time with moment.js
-        //first time
-        var timeConverted = moment(time, "HH:mm").subtract(1, "years");
-        console.log(timeConverted);
 
-        // curent time
-        var currentTime = moment();
-        console.log("current time: " + moment(currentTime).format("hh:mm a"));
-
-        // difference between the times
-        var diffTime = moment().diff(moment(timeConverted), "minutes");
-        console.log("Difference in time: " + diffTime);
-
-        // Time apart (remainder)
-        var tRemainder = diffTime % frequency;
-        console.log(tRemainder);
-
-        // Minute until train
-        var minutesUntilTrain = frequency - tRemainder;
-        console.log("Minutes until train: " + minutesUntilTrain);
-
-        // Next train
-        var nextTrain = moment().add(minutesUntilTrain, "minutes");
-        console.log("Arrival time: " + moment(nextTrain).format("hh:mm"));
-
-        // Change what is saved in firebase
-        database.ref().set({
+        // Push to firebase
+        database.ref().push({
             name: name,
             destination: destination,
-            time: time,
+            first: first,
             frequency: frequency
         });
+
+        // Clear textboxes before new input
+        $("#name").val("");
+        $("#destination").val("");
+        $("#first-train").val("");
+        $("#frequency").val("");
+
+        return false; // this will prevent from moving to new page??
+
     });
 
     // Add changes to HTML
-    database.ref().on("value", function (snapshot) {
+    database.ref().on("child_added", function (childSnapshot) {
 
-        // Print initial data to console
-        console.log(snapshot.val());
-        console.log(snapshot.val().name);
-        console.log(snapshot.val().destination);
-        console.log(snapshot.val().time);
-        console.log(snapshot.val().frequency);
+        // console.log(childSnapshot.val());
+        // console.log(childSnapshot.val().name);
+        // console.log(childSnapshot.val().destination);
+        // console.log(childSnapshot.val().first);
+        // console.log(childSnapshot.val().frequency);
+
+        // Re-define time in snapshot
+        var first = childSnapshot.val().first;
+        var frequency = childSnapshot.val().frequency;
+        var time = moment();
+
+        // testing
+        console.log(time);
+
+        // Format train time
+        var timeConverted = moment(first, "hh:mm").subtract(1, "years");
+
+        // Calculate difference between current and converted time
+        var diffTime = moment().diff(moment(timeConverted), "minutes");
+
+        // Time apart (remainder)
+        var tRemainder = diffTime % frequency;
+
+        // Minutes until train
+        var minutesTillTrain = frequency - tRemainder;
+
+        // Next train
+        var nextTrain = moment().add(minutesTillTrain, "minutes");
+        var nextTrainFormat = moment(nextTrain).format("hh:mm a");
 
         // Change HTML
-        $("tbody").append("<tr><td><strong>" + snapshot.val().name + "</strong></td><td>" + snapshot.val().destination + "</td><td>" + snapshot.val().frequency + "</td><td>" + snapshot.val().time + "</td></tr>");
+        $("#new-train").append("<tr><td><strong>" + childSnapshot.val().name + "</strong></td><td>" + childSnapshot.val().destination + "</td><td>" + frequency + "</td><td>" + nextTrainFormat + "</td><td>" + minutesTillTrain + "</td></tr>");
 
         // Handle errors
     }, function (errorObject) {
         console.log("The read failed: " + errorObject.code);
-    })
+    });
+
+    // Remove button
+    // $(document.body).on("click", ".checkbox", function () {
+    //     var remove = $(this).attr("#row");
+    //     $(".checkbox" + remove).remove();
+    // })
+
 });
