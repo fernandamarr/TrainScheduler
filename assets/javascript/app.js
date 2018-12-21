@@ -1,8 +1,3 @@
-// manipulate train time in military time with moment.js
-// frequency in minutes and first train time in military time
-// Users from many different machines must be able to view same train times. 
-// provide up-to-date info with moment.js -- arrival time and how many minutes remain until arrival times
-
 $(document).ready(function () {
 
     // Initialize Firebase
@@ -14,6 +9,7 @@ $(document).ready(function () {
         storageBucket: "trainscheduler-79921.appspot.com",
         messagingSenderId: "66428144576"
     };
+
     firebase.initializeApp(config);
 
     // Variable to reference the database
@@ -32,7 +28,6 @@ $(document).ready(function () {
         var first = $("#first-train").val().trim();
         var frequency = $("#frequency").val().trim();
 
-
         // Push to firebase
         database.ref().push({
             name: name,
@@ -47,7 +42,7 @@ $(document).ready(function () {
         $("#first-train").val("");
         $("#frequency").val("");
 
-        return false; // this will prevent from moving to new page??
+        return false; 
 
     });
 
@@ -91,11 +86,5 @@ $(document).ready(function () {
     }, function (errorObject) {
         console.log("The read failed: " + errorObject.code);
     });
-
-    // Remove button
-    // $(document.body).on("click", ".checkbox", function () {
-    //     var remove = $(this).attr("#row");
-    //     $(".checkbox" + remove).remove();
-    // })
 
 });
